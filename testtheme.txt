@@ -123,7 +123,7 @@ so it's part of everyday life.</p>
 <div class="notices green">
 <p>This is a success notification</p>
 </div>
-<pre><code class="language-markdown">
+<pre><code class="language-html">
     &lt;div class="notices yellow"&gt;
     &lt;p&gt;This is a warning notification&lt;/p&gt;
     &lt;/div&gt;

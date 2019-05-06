@@ -1,3 +1,13 @@
+/*
+ * flatchat
+ * flat file php cms/forum/chat all in one
+ * 
+ * (C) X35gaming, under GNU GPL-v3
+ * */
+/* MarkDown styling
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
 
 body {
     background-color: rgb(51, 51, 51);
@@ -118,6 +128,10 @@ time {
     color:red;
     font-family: 'Courier New', Courier, monospace
 }
+/* styling for containers
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
 .header { /* title bar */
     background:rgb(143, 29, 29) ;
     height: 2cm;
@@ -130,6 +144,7 @@ time {
     margin: 5px;
     color: #cfcfcf;
 }
+
 
 .headlinks { /* title bar */
     background:rgb(105, 105, 105) ;
@@ -156,6 +171,10 @@ time {
     padding: 5px;
     overflow: overlay;
 }
+/* Chat elements
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
 .msgs{
     width:100%;
     height:calc(100% - 1.5cm)
@@ -170,7 +189,13 @@ time {
 }
 #chaterea{height:100%}
 
-
+/* TitleBar buttons
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
+.headlinks ul {
+    list-style-type: none;
+}
 .myButton {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ece9e8;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ece9e8;
@@ -209,5 +234,21 @@ time {
 	position:relative;
 	top:1px;
 }
+/* forum elements
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
+.forumhead { /* forum title bar */
+    background:rgb(31, 127, 131) ;
+    height: 2cm;
+    width: calc(100vw - 20px);
+    text-align: center;
+    border-radius: 10px; 
+    position:relative;
+    color: #ffffff;
+}
+.forumhead h1{
+    padding:0.5cm;
+}
 
-    
+

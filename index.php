@@ -19,7 +19,7 @@ function joinToLinks($text) {
 };
 $customlinks = $conf["links"];
 foreach ($customlinks as $j){
-    joinToLinks("<a class=\"myButton\" href=\"".$j["url"]."\">".$j["name"]."</a> ");
+    joinToLinks("<a class=\"myButton\" href=\"".$j["url"]."\">"."<li>".$j["name"]."</li>"."</a>");
 }
 
 
@@ -45,8 +45,13 @@ $title = $Parsedown->line($conf["title"]);                                  //se
 require("themes/".$conf["theme"]."/theme.php"); //load theme
 function loadCss($file) { 
     global $conf;                      
-    $style = file_get_contents("themes/".$conf["theme"]."/$file");          //load css files without typing the dir
-    echo "<style>$style</style>" ;
+    $style = "themes/".$conf["theme"]."/$file";          //load css files without typing the dir
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\"></link>" ;
+}
+function loadJs($file) { 
+    global $conf;                      
+    $script = "themes/".$conf["theme"]."/$file";          //load css files without typing the dir
+    echo "<script src=\"$script\"></script>" ;
 }
 
 

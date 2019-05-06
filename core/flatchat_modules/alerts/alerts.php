@@ -57,6 +57,4 @@ echo <<<ALERT
 </div>
 ALERT;
 }
-alert("an alert");
-alert(sin(pi()))
 ?>
