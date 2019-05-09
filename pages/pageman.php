@@ -16,8 +16,9 @@ $use_auth = true;
 
 // Users: array('Username' => 'Password', 'Username2' => 'Password2', ...)
 // Generate secure password hash - https://tinyfilemanager.github.io/docs/pwd.html
+$passhashes = json_decode(file_get_contents("config.json"),true);                                   // load config file.
 $auth_users = array(
-'x35gaming' => '$2y$10$VSu973pPJF4v3nISVqtJ6.mpNyUBXbD/7uZguLnJdnyIHTBsKzHBW'
+$passhashes["adminuser"] => $passwordhashes["password-hash"] 
 );
 
 // Readonly users (username array)
