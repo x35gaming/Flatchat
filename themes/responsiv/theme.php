@@ -6,6 +6,9 @@
 <?php loadCss("style.css");
       loadCss("prism.css");
       loadJs("prism.js");
+echo <<<METAQUERY
+<meta name="description" content="{$conf["seodesc"]}">
+METAQUERY
 
 ?>
 </head>
