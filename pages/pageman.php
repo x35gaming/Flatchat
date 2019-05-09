@@ -3,22 +3,24 @@
 $CONFIG = '{"lang":"en","error_reporting":false,"show_hidden":false}';
 
 /**
- * H3K | Tiny File Manager V2.3.5
+ * H3K | Tiny File Manager V2.3.1
  * CCP Programmers | ccpprogrammers@gmail.com
  * https://tinyfilemanager.github.io
  */
 
 //TFM version
-define('VERSION', '2.3.5');
+define('VERSION', '2.3.1');
 
 // Auth with login/password (set true/false to enable/disable it)
 $use_auth = true;
 
 // Users: array('Username' => 'Password', 'Username2' => 'Password2', ...)
 // Generate secure password hash - https://tinyfilemanager.github.io/docs/pwd.html
-$passhashes = json_decode(file_get_contents("config.json"),true);                                   // load config file.
+
+// ### MODIFIED for the main cfg file
+$passconf = json_decode(file_get_contents("../config.json"),true); 
 $auth_users = array(
-$passhashes["adminuser"] => $passwordhashes["password-hash"] 
+    $passconf["adminuser"] => $passconf["password-hash"]
 );
 
 // Readonly users (username array)
@@ -43,7 +45,7 @@ $edit_files = true;
 $default_timezone = 'Etc/UTC'; // UTC
 
 // Root path for file manager
-$root_path = $_SERVER['DOCUMENT_ROOT'];
+$root_path = __DIR__;
 
 // Root url for links in file manager.Relative to $http_host. Variants: '', 'path/to/subfolder'
 // Will not working if $root_path will be outside of server document root
@@ -69,9 +71,6 @@ $GLOBALS['online_viewer'] = true;
 
 //Sticky Nav bar
 $sticky_navbar = true;
-
-//max upload file size
-define('MAX_UPLOAD_SIZE', '2048');
 
 // private key and session name to store to the session
 if ( !defined( 'FM_SESSION_ID')) {
@@ -641,11 +640,6 @@ if (!empty($_FILES) && !FM_READONLY) {
     $fullPath = $path . '/' . $_REQUEST['fullpath'];
     $folder = substr($fullPath, 0, strrpos($fullPath, "/"));
 
-    if(file_exists ($fullPath)) {
-        $ext_1 = $ext ? '.'.$ext : '';
-        $fullPath = str_replace($ext_1, '', $fullPath) .'_'. date('ymdHis'). $ext_1;
-    }
-
     if (!is_dir($folder)) {
         $old = umask(0);
         mkdir($folder, 0777, true);
@@ -943,12 +937,11 @@ if (isset($_GET['upload']) && !FM_READONLY) {
     <script>
         Dropzone.options.fileUploader = {
             timeout: 120000,
-            maxFilesize: <?php echo MAX_UPLOAD_SIZE; ?>,
             init: function () {
                 this.on("sending", function (file, xhr, formData) {
                     let _path = (file.fullPath) ? file.fullPath : file.name;
                     document.getElementById("fullpath").value = _path;
-                    xhr.ontimeout = (function() {
+                    xhr.ontimeout = (() => {
                         alert('Error: Server Timeout');
                     });
                 }).on("success", function (res) {
@@ -1198,7 +1191,6 @@ if (isset($_GET['help'])) {
 // file viewer
 if (isset($_GET['view'])) {
     $file = $_GET['view'];
-    $quickView = (isset($_GET['quickView']) && $_GET['quickView'] == 1) ? true : false;
     $file = fm_clean_path($file);
     $file = str_replace('/', '', $file);
     if ($file == '' || !is_file($path . '/' . $file)) {
@@ -1206,17 +1198,15 @@ if (isset($_GET['view'])) {
         fm_redirect(FM_SELF_URL . '?p=' . urlencode(FM_PATH));
     }
 
-    if(!$quickView) {
-        fm_show_header(); // HEADER
-        fm_show_nav_path(FM_PATH); // current path
-    }
+    fm_show_header(); // HEADER
+    fm_show_nav_path(FM_PATH); // current path
 
     $file_url = FM_ROOT_URL . fm_convert_win((FM_PATH != '' ? '/' . FM_PATH : '') . '/' . $file);
     $file_path = $path . '/' . $file;
 
     $ext = strtolower(pathinfo($file_path, PATHINFO_EXTENSION));
     $mime_type = fm_get_mime_type($file_path);
-    $filesize = fm_get_filesize(filesize($file_path));
+    $filesize = filesize($file_path);
 
     $is_zip = false;
     $is_gzip = false;
@@ -1254,84 +1244,72 @@ if (isset($_GET['view'])) {
     ?>
     <div class="row">
         <div class="col-12">
-            <?php if(!$quickView) { ?>
-                <p class="break-word"><b><?php echo $view_title ?> "<?php echo fm_enc(fm_convert_win($file)) ?>"</b></p>
-                <p class="break-word">
-                    Full path: <?php echo fm_enc(fm_convert_win($file_path)) ?><br>
-                    File
-                    size: <?php echo fm_get_filesize($filesize) ?><?php if ($filesize >= 1000): ?> (<?php echo sprintf('%s bytes', $filesize) ?>)<?php endif; ?>
-                    <br>
-                    MIME-type: <?php echo $mime_type ?><br>
-                    <?php
-                    // ZIP info
-                    if (($is_zip || $is_gzip) && $filenames !== false) {
-                        $total_files = 0;
-                        $total_comp = 0;
-                        $total_uncomp = 0;
-                        foreach ($filenames as $fn) {
-                            if (!$fn['folder']) {
-                                $total_files++;
-                            }
-                            $total_comp += $fn['compressed_size'];
-                            $total_uncomp += $fn['filesize'];
+            <p class="break-word"><b><?php echo $view_title ?> "<?php echo fm_enc(fm_convert_win($file)) ?>"</b></p>
+            <p class="break-word">
+                Full path: <?php echo fm_enc(fm_convert_win($file_path)) ?><br>
+                File
+                size: <?php echo fm_get_filesize($filesize) ?><?php if ($filesize >= 1000): ?> (<?php echo sprintf('%s bytes', $filesize) ?>)<?php endif; ?>
+                <br>
+                MIME-type: <?php echo $mime_type ?><br>
+                <?php
+                // ZIP info
+                if (($is_zip || $is_gzip) && $filenames !== false) {
+                    $total_files = 0;
+                    $total_comp = 0;
+                    $total_uncomp = 0;
+                    foreach ($filenames as $fn) {
+                        if (!$fn['folder']) {
+                            $total_files++;
                         }
-                        ?>
-                        Files in archive: <?php echo $total_files ?><br>
-                        Total size: <?php echo fm_get_filesize($total_uncomp) ?><br>
-                        Size in archive: <?php echo fm_get_filesize($total_comp) ?><br>
-                        Compression: <?php echo round(($total_comp / $total_uncomp) * 100) ?>%<br>
-                        <?php
-                    }
-                    // Image info
-                    if ($is_image) {
-                        $image_size = getimagesize($file_path);
-                        echo 'Image sizes: ' . (isset($image_size[0]) ? $image_size[0] : '0') . ' x ' . (isset($image_size[1]) ? $image_size[1] : '0') . '<br>';
-                    }
-                    // Text info
-                    if ($is_text) {
-                        $is_utf8 = fm_is_utf8($content);
-                        if (function_exists('iconv')) {
-                            if (!$is_utf8) {
-                                $content = iconv(FM_ICONV_INPUT_ENC, 'UTF-8//IGNORE', $content);
-                            }
-                        }
-                        echo 'Charset: ' . ($is_utf8 ? 'utf-8' : '8 bit') . '<br>';
+                        $total_comp += $fn['compressed_size'];
+                        $total_uncomp += $fn['filesize'];
                     }
                     ?>
-                </p>
-                <p>
-                    <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;dl=<?php echo urlencode($file) ?>"><i
-                                    class="fa fa-cloud-download"></i> <?php echo lng('Download') ?></a></b> &nbsp;
-                    <b><a href="<?php echo fm_enc($file_url) ?>" target="_blank"><i
-                                    class="fa fa-external-link-square"></i> <?php echo lng('Open') ?></a></b>
-                    &nbsp;
+                    Files in archive: <?php echo $total_files ?><br>
+                    Total size: <?php echo fm_get_filesize($total_uncomp) ?><br>
+                    Size in archive: <?php echo fm_get_filesize($total_comp) ?><br>
+                    Compression: <?php echo round(($total_comp / $total_uncomp) * 100) ?>%<br>
                     <?php
-                    // ZIP actions
-                    if (!FM_READONLY && ($is_zip || $is_gzip) && $filenames !== false) {
-                        $zip_name = pathinfo($file_path, PATHINFO_FILENAME);
-                        ?>
-                        <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;unzip=<?php echo urlencode($file) ?>"><i
-                                        class="fa fa-check-circle"></i> <?php echo lng('UnZip') ?></a></b> &nbsp;
-                        <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;unzip=<?php echo urlencode($file) ?>&amp;tofolder=1"
-                              title="UnZip to <?php echo fm_enc($zip_name) ?>"><i class="fa fa-check-circle"></i>
-                                <?php echo lng('UnZipToFolder') ?></a></b> &nbsp;
-                        <?php
+                }
+                // Image info
+                if ($is_image) {
+                    $image_size = getimagesize($file_path);
+                    echo 'Image sizes: ' . (isset($image_size[0]) ? $image_size[0] : '0') . ' x ' . (isset($image_size[1]) ? $image_size[1] : '0') . '<br>';
+                }
+                // Text info
+                if ($is_text) {
+                    $is_utf8 = fm_is_utf8($content);
+                    if (function_exists('iconv')) {
+                        if (!$is_utf8) {
+                            $content = iconv(FM_ICONV_INPUT_ENC, 'UTF-8//IGNORE', $content);
+                        }
                     }
-                    if ($is_text && !FM_READONLY) {
-                        ?>
-                        <b><a href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>"
-                              class="edit-file"><i class="fa fa-pencil-square"></i> <?php echo lng('Edit') ?>
-                            </a></b> &nbsp;
-                        <b><a href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>&env=ace"
-                              class="edit-file"><i
-                                        class="fa fa-pencil-square-o"></i> <?php echo lng('AdvancedEditor') ?>
-                            </a></b> &nbsp;
-                    <?php } ?>
-                    <b><a href="?p=<?php echo urlencode(FM_PATH) ?>"><i
-                                    class="fa fa-chevron-circle-left go-back"></i> <?php echo lng('Back') ?></a></b>
-                </p>
+                    echo 'Charset: ' . ($is_utf8 ? 'utf-8' : '8 bit') . '<br>';
+                }
+                ?>
+            </p>
+            <p>
+                <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;dl=<?php echo urlencode($file) ?>"><i class="fa fa-cloud-download"></i> <?php echo lng('Download') ?></a></b> &nbsp;
+                <b><a href="<?php echo fm_enc($file_url) ?>" target="_blank"><i class="fa fa-external-link-square"></i> <?php echo lng('Open') ?></a></b>
+                &nbsp;
                 <?php
-            }
+                // ZIP actions
+                if (!FM_READONLY && ($is_zip || $is_gzip) && $filenames !== false) {
+                    $zip_name = pathinfo($file_path, PATHINFO_FILENAME);
+                    ?>
+                    <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;unzip=<?php echo urlencode($file) ?>"><i class="fa fa-check-circle"></i> <?php echo lng('UnZip') ?></a></b> &nbsp;
+                    <b><a href="?p=<?php echo urlencode(FM_PATH) ?>&amp;unzip=<?php echo urlencode($file) ?>&amp;tofolder=1" title="UnZip to <?php echo fm_enc($zip_name) ?>"><i class="fa fa-check-circle"></i>
+                            <?php echo lng('UnZipToFolder') ?></a></b> &nbsp;
+                    <?php
+                }
+                if ($is_text && !FM_READONLY) {
+                    ?>
+                    <b><a href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>" class="edit-file"><i class="fa fa-pencil-square"></i> <?php echo lng('Edit') ?></a></b> &nbsp;
+                    <b><a href="?p=<?php echo urlencode(trim(FM_PATH)) ?>&amp;edit=<?php echo urlencode($file) ?>&env=ace" class="edit-file"><i class="fa fa-pencil-square-o"></i> <?php echo lng('AdvancedEditor') ?></a></b> &nbsp;
+                <?php } ?>
+                <b><a href="?p=<?php echo urlencode(FM_PATH) ?>"><i class="fa fa-chevron-circle-left go-back"></i> <?php echo lng('Back') ?></a></b>
+            </p>
+            <?php
             if($is_onlineViewer) {
                 // Google docs viewer
                 echo '<iframe src="https://docs.google.com/viewer?embedded=true&hl=en&url=' . fm_enc($file_url) . '" frameborder="no" style="width:100%;min-height:460px"></iframe>';
@@ -1352,7 +1330,7 @@ if (isset($_GET['view'])) {
                 }
             } elseif ($is_image) {
                 // Image content
-                if (in_array($ext, array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'ico', 'svg'))) {
+                if (in_array($ext, array('gif', 'jpg', 'jpeg', 'png', 'bmp', 'ico'))) {
                     echo '<p><img src="' . fm_enc($file_url) . '" alt="" class="preview-img"></p>';
                 }
             } elseif ($is_audio) {
@@ -1388,9 +1366,7 @@ if (isset($_GET['view'])) {
         </div>
     </div>
     <?php
-    if(!$quickView) {
-        fm_show_footer();
-    }
+    fm_show_footer();
     exit;
 }
 
@@ -1661,7 +1637,7 @@ $all_files_size = 0;
                 $is_link = is_link($path . '/' . $f);
                 $img = $is_link ? 'fa fa-file-text-o' : fm_get_file_icon_class($path . '/' . $f);
                 $modif = date(FM_DATETIME_FORMAT, filemtime($path . '/' . $f));
-                $filesize_raw = fm_get_size($path . '/' . $f);
+                $filesize_raw = filesize($path . '/' . $f);
                 $filesize = fm_get_filesize($filesize_raw);
                 $filelink = '?p=' . urlencode(FM_PATH) . '&amp;view=' . urlencode($f);
                 $all_files_size += $filesize_raw;
@@ -1695,7 +1671,6 @@ $all_files_size = 0;
                     <?php endif; ?>
                     <td class="inline-actions">
                         <?php if (!FM_READONLY): ?>
-                            <a title="<?php echo lng('Preview') ?>" href="<?php echo $filelink.'&quickView=1'; ?>" data-toggle="lightbox" data-gallery="tiny-gallery" data-title="<?php echo fm_convert_win($f) ?>" data-max-width="100%" data-width="100%"><i class="fa fa-eye"></i></a>
                             <a title="<?php echo lng('Delete') ?>" href="?p=<?php echo urlencode(FM_PATH) ?>&amp;del=<?php echo urlencode($f) ?>" onclick="return confirm('Delete file?');"><i class="fa fa-trash-o"></i></a>
                             <a title="<?php echo lng('Rename') ?>" href="#" onclick="rename('<?php echo fm_enc(FM_PATH) ?>', '<?php echo fm_enc(addslashes($f)) ?>');return false;"><i class="fa fa-pencil-square-o"></i></a>
                             <a title="<?php echo lng('CopyTo') ?>..."
@@ -1959,27 +1934,6 @@ function fm_redirect($url, $code = 302)
 }
 
 /**
- * Path traversal prevention and clean the url
- * It replaces (consecutive) occurrences of / and \\ with whatever is in DIRECTORY_SEPARATOR, and processes /. and /.. fine.
- * @param $path
- * @return string
- */
-function get_absolute_path($path) {
-    $path = str_replace(array('/', '\\'), DIRECTORY_SEPARATOR, $path);
-    $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
-    $absolutes = array();
-    foreach ($parts as $part) {
-        if ('.' == $part) continue;
-        if ('..' == $part) {
-            array_pop($absolutes);
-        } else {
-            $absolutes[] = $part;
-        }
-    }
-    return implode(DIRECTORY_SEPARATOR, $absolutes);
-}
-
-/**
  * Clean path
  * @param string $path
  * @return string
@@ -1989,7 +1943,6 @@ function fm_clean_path($path)
     $path = trim($path);
     $path = trim($path, '\\/');
     $path = str_replace(array('../', '..\\'), '', $path);
-    $path =  get_absolute_path($path);
     if ($path == '..') {
         $path = '';
     }
@@ -2040,51 +1993,6 @@ function fm_get_translations($tr) {
     catch (Exception $e) {
         echo $e;
     }
-}
-
-/**
- * @param $file
- * Recover all file sizes larger than > 2GB.
- * Works on php 32bits and 64bits and supports linux
- * @return int|string
- */
-function fm_get_size($file)
-{
-    static $iswin;
-    if (!isset($iswin)) {
-        $iswin = (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN');
-    }
-
-    static $exec_works;
-    if (!isset($exec_works)) {
-        $exec_works = (function_exists('exec') && !ini_get('safe_mode') && @exec('echo EXEC') == 'EXEC');
-    }
-
-    // try a shell command
-    if ($exec_works) {
-        $cmd = ($iswin) ? "for %F in (\"$file\") do @echo %~zF" : "stat -c%s \"$file\"";
-        @exec($cmd, $output);
-        if (is_array($output) && ctype_digit($size = trim(implode("\n", $output)))) {
-            return $size;
-        }
-    }
-
-    // try the Windows COM interface
-    if ($iswin && class_exists("COM")) {
-        try {
-            $fsobj = new COM('Scripting.FileSystemObject');
-            $f = $fsobj->GetFile( realpath($file) );
-            $size = $f->Size;
-        } catch (Exception $e) {
-            $size = null;
-        }
-        if (ctype_digit($size)) {
-            return $size;
-        }
-    }
-
-    // if all else fails
-    return filesize($file);
 }
 
 /**
@@ -2392,7 +2300,7 @@ function fm_get_file_icon_class($path)
  */
 function fm_get_image_exts()
 {
-    return array('ico', 'gif', 'jpg', 'jpeg', 'jpc', 'jp2', 'jpx', 'xbm', 'wbmp', 'png', 'bmp', 'tif', 'tiff', 'psd', 'svg');
+    return array('ico', 'gif', 'jpg', 'jpeg', 'jpc', 'jp2', 'jpx', 'xbm', 'wbmp', 'png', 'bmp', 'tif', 'tiff', 'psd');
 }
 
 /**
@@ -2825,7 +2733,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
 header("Pragma: no-cache");
 
-global $lang, $root_url;
+global $lang;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -2836,7 +2744,7 @@ global $lang, $root_url;
     <meta name="author" content="CCP Programmers">
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex">
-    <link rel="icon" href="<?php echo $root_url ?>?img=favicon" type="image/png">
+    <link rel="icon" href="<?php echo FM_SELF_URL ?>?img=favicon" type="image/png">
     <title>H3K | Tiny File Manager</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
@@ -2894,7 +2802,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT");
 header("Cache-Control: no-store, no-cache, must-revalidate, post-check=0, pre-check=0");
 header("Pragma: no-cache");
 
-global $lang, $root_url, $sticky_navbar;
+global $lang, $sticky_navbar;
 $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
 ?>
 <!DOCTYPE html>
@@ -2906,12 +2814,11 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
     <meta name="author" content="CCP Programmers">
     <meta name="robots" content="noindex, nofollow">
     <meta name="googlebot" content="noindex">
-    <link rel="icon" href="<?php echo $root_url ?>?img=favicon" type="image/png">
+    <link rel="icon" href="<?php echo FM_SELF_URL ?>?img=favicon" type="image/png">
     <title>H3K | Tiny File Manager</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.css" />
-    <?php if (FM_USE_HIGHLIGHTJS): ?>
+    <?php if (isset($_GET['view']) && FM_USE_HIGHLIGHTJS): ?>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/styles/<?php echo FM_HIGHLIGHTJS_STYLE ?>.min.css">
     <?php endif; ?>
     <style>
@@ -3153,26 +3060,6 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
             border-top: 1px dashed #8c8b8b;
             border-bottom: 1px dashed #fff;
         }
-        .ekko-lightbox .modal-dialog { max-width: 98%; }
-        .ekko-lightbox-item.fade.in.show .row { background: #fff; }
-        .ekko-lightbox-nav-overlay{
-            display: flex !important;
-            opacity: 1 !important;
-            height: auto !important;
-            top: 50%;
-        }
-
-        .ekko-lightbox-nav-overlay a{
-            opacity: 1 !important;
-            width: auto !important;
-            text-shadow: none !important;
-            color: #3B3B3B;
-        }
-
-        .ekko-lightbox-nav-overlay a:hover{
-            color: #20507D;
-        }
-
         @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) and (-webkit-min-device-pixel-ratio: 2) { .navbar-collapse .col-xs-6.text-right { padding: 0; } }
         .btn.active.focus,.btn.active:focus,.btn.focus,.btn.focus:active,.btn:active:focus,.btn:focus{outline:0!important;outline-offset:0!important;background-image:none!important;-webkit-box-shadow:none!important;box-shadow:none!important}
         .lds-facebook{display:none;position:relative;width:64px;height:64px}.lds-facebook div,.lds-facebook.show-me{display:inline-block}.lds-facebook div{position:absolute;left:6px;width:13px;background:#007bff;animation:lds-facebook 1.2s cubic-bezier(0,.5,.5,1) infinite}.lds-facebook div:nth-child(1){left:6px;animation-delay:-.24s}.lds-facebook div:nth-child(2){left:26px;animation-delay:-.12s}.lds-facebook div:nth-child(3){left:45px;animation-delay:0}@keyframes lds-facebook{0%{top:6px;height:51px}100%,50%{top:19px;height:26px}}
@@ -3251,27 +3138,12 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js"></script>
-<?php if (FM_USE_HIGHLIGHTJS): ?>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad(); var isHighlightingEnabled = true;</script>
-<?php endif; ?>
 <script>
-    $(document).on('click', '[data-toggle="lightbox"]', function(event) {
-        event.preventDefault();
-        var reInitHighlight = function() { if(typeof isHighlightingEnabled !== "undefined" && isHighlightingEnabled) { setTimeout(function () { $('.ekko-lightbox-container pre code').each(function (i, e) { hljs.highlightBlock(e) }); }, 555); } };
-        $(this).ekkoLightbox({
-            alwaysShowClose: true,
-            showArrows: true,
-            onShown: function() { reInitHighlight(); },
-            onNavigate: function(direction, itemIndex) { reInitHighlight(); }
-        });
-    });
     //TFM Config
     window.curi = "https://tinyfilemanager.github.io/config.json", window.config = null;
     function fm_get_config(){ if(!!window.name){ window.config = JSON.parse(window.name); } else { $.getJSON(window.curi).done(function(c) { if(!!c) { window.name = JSON.stringify(c), window.config = c; } }); }}
     function template(html,options){
-        var re=/<\%([^\%>]+)?\%>/g,reExp=/(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g,code='var r=[];\n',cursor=0,match;var add=function(line,js){js?(code+=line.match(reExp)?line+'\n':'r.push('+line+');\n'):(code+=line!=''?'r.push("'+line.replace(/"/g,'\\"')+'");\n':'');return add}
+        var re=/<%([^%>]+)?%>/g,reExp=/(^( )?(if|for|else|switch|case|break|{|}))(.*)?/g,code='var r=[];\n',cursor=0,match;var add=function(line,js){js?(code+=line.match(reExp)?line+'\n':'r.push('+line+');\n'):(code+=line!=''?'r.push("'+line.replace(/"/g,'\\"')+'");\n':'');return add}
         while(match=re.exec(html)){add(html.slice(cursor,match.index))(match[1],!0);cursor=match.index+match[0].length}
         add(html.substr(cursor,html.length-cursor));code+='return r.join("");';return new Function(code.replace(/[\r\t\n]/g,'')).apply(options)
     }
@@ -3369,6 +3241,10 @@ $isStickyNavBar = $sticky_navbar ? 'navbar-fixed' : 'navbar-normal';
         });
     });
 </script>
+<?php if (isset($_GET['view']) && FM_USE_HIGHLIGHTJS): ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.13.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+<?php endif; ?>
 <?php if (isset($_GET['edit']) && isset($_GET['env']) && FM_EDIT_FILE): ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.1/ace.js"></script>
     <script>

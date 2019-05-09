@@ -1,3 +1,3 @@
 <?php
-echo "hello\rworld"
+echo (function(){return "hi";})
 ?>

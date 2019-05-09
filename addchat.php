@@ -24,11 +24,11 @@ if (isset($_GET["clearuser"])){
 }
 $newmsg;
 $userclear= "please enter a username"."<script> alert(".var_export("please enter a username",true).")</script>";
-$passwdincorr= "this username is reserved for the webmaster, please use another one"."<script> alert(".var_export("this username is reserved for the webmaster, please use another one",true).")</script>";
+$passwdincorr= ", this username is reserved for the webmaster"."<script> alert(".var_export("this username is reserved for the webmaster, please use another one",true).")</script>";
 $messreq="message requred"."<script> alert(".var_export("message required",true).")</script>";
 $chat = json_decode(file_get_contents("chats/chats.json"),true);                               // load chats file
 if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
-    if ($_POST["user"] !== $conf["adminuser"]) {
+    if (!stripos($_POST["user"],$conf["adminuser"])) {
         $user=$_POST['user'];                                                              // set user var
         if (!isset($_SESSION["user"])){
             $user=$_POST['user'];  
@@ -76,7 +76,7 @@ if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
 }else{echo $userclear;}                                                          // <-----/
 ?>
 <form method="post">
-User: <input type="text" name="user" value="<?php echo $_SESSION["user"]?>"/>
+User: <input type="text" name="user" value="<?php if(isset($_SESSION["user"])) { echo $_SESSION["user"];}?>"/>
 Msg: <textarea type="text" rows="2" cols="40" name="msg"></textarea>
 <input type="submit">
 <a href="addchat.php?clearuser">reset username</a> <a href="addchat.php?noraml">normal mode</a></form>

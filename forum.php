@@ -29,14 +29,26 @@ $Parsedown = new Parsedown();                               // create a parsedow
 
                                                             // env vars
 $forumtitle=$conf["forumtitle"];
-if (!isset($_GET["thread"]))
+if (!isset($_GET["thread"])){
+    require "forum/boardslist.php";
 $mainpage=                                                                  // set the page content
 $Parsedown->text(<<<MAINPAGECONTENT
 <div class="forumhead"><h1>$forumtitle<h1></div>
 <div class="forumcontent">
-boards:</div>
+boards:<br>
+$content</div>
 MAINPAGECONTENT
 );
+}else{
+    require "forum/viewthread.php";
+    $mainpage=                                                                  // set the page content
+<<<MAINPAGECONTENT
+<div class="forumhead"><h1>$forumtitle<h1></div>
+<div class="forumcontent">
+$thread
+</div>
+MAINPAGECONTENT;
+}
 $title = $Parsedown->line($conf["title"]);                                  //set title 
 
                                     // theme
