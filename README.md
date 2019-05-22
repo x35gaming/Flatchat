@@ -9,5 +9,5 @@ go to passhash.php, enter password then copy hash to the config file
 - [ ] chat channels
 - [x] no mysql
 - [x] swear filter (no regex)
-- [x] moderation panel *
-* : half complete
+- [x] moderation panel
+
