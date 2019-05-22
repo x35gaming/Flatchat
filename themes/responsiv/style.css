@@ -208,7 +208,7 @@ html {
 }
 .msgsadmin{
     width:100%;
-    height:calc(30%)
+    height:100vh;
 }
 .addmsg{
     width:100%;

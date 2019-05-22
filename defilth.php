@@ -1,4 +1,10 @@
 <?php
+/*
+* flatchat
+* flat file php cms/forum/chat all in one
+* 
+* (C) X35gaming, under GNU GPL-v3
+* */
 function defilth($msg,$badwords){
 global $conf;
 $bettermsg=$msg;

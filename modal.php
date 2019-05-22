@@ -1,5 +1,12 @@
-
 <style>
+/*
+* flatchat
+* flat file php cms/forum/chat all in one
+* 
+* (C) X35gaming, under GNU GPL-v3
+* */
+
+
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */

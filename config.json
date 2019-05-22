@@ -1,27 +1,27 @@
 {
-    "seodesc":"another flatchat site",
-    "forumtitle":"flatchat forum",
-    "defilth-words":"true",
     "title": "flatchat",
+    "seodesc": "another flatchat site",
     "theme": "responsiv",
-    "adminuser":"x35gaming",
-    "password-hash":"$2y$10$wT.ioqhxUowY1Y1IK8XaxO3Nadnj2TqWDIsPVGbHq1gWs3FdS0ndq",
-    "links":[
-         {
-             "url":"./index.php",
-             "name":"home"
-         },
-         {
-             "url":"./chat.php",
-             "name":"chat"
-         },
-         {
-            "url":"./index.php?page=404",
-            "name":"404"
-         },
-         {
-            "url":"./testtheme.php",
-            "name":"test theme"
-         }
-    ]
+    "links": [
+        {
+            "url": "./index.php",
+            "name": "home"
+        },
+        {
+            "url": "./chat.php",
+            "name": "chat"
+        },
+        {
+            "url": "./index.php?page=404",
+            "name": "404"
+        },
+        {
+            "url": "./testtheme.php",
+            "name": "test theme"
+        }
+    ],
+    "adminuser": "admin",
+    "password-hash": "$2y$10$wT.ioqhxUowY1Y1IK8XaxO3Nadnj2TqWDIsPVGbHq1gWs3FdS0ndq",
+    "forumtitle": "Flatchat Forum",
+    "defilth-words": "true"
 }
