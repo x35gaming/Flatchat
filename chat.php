@@ -27,10 +27,10 @@ $Parsedown = new Parsedown();                               // create a parsedow
 
 
 
-                                    // enironment vars
+                                    // environment vars
                                     // use these in your theme for title and content.
 
-$mainpage=""                  ;      // mainpage decleration
+$mainpage=""                  ;      // mainpage declaration
 function joinToMain($text) {
     global $mainpage;                      // declare mainpage var
     $newmain = $mainpage.$text;            // join $text to $mainpage as $newmain
@@ -42,7 +42,7 @@ $title = $Parsedown->line($conf["title"]);//set title
 // page formation
 // <body>
 joinToMain("
-<div id=\"chaterea\">
+<div id=\"chatarea\">
 <iframe src=\"ajax.php\" class=\"msgs\" frameborder=\"0\"></iframe>
 
 <iframe src=\"addchat.php\" class=\"addmsg\" frameborder=\"0\"></iframe>

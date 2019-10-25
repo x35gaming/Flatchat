@@ -5,6 +5,7 @@
 * 
 * (C) X35gaming, under GNU GPL-v3
 * */
+// chats display
 $conf = json_decode(file_get_contents("config.json"),true);     // load config file.
 
 require_once("defilth.php");                                    // init Defilth module.

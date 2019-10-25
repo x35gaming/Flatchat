@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <style>
 block {
     float: top;
@@ -6,7 +9,7 @@ block {
 }
 </style>
 <?php
-session_start();
+
 $cnf = json_decode(file_get_contents("config.json"),true);
 
 if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
@@ -42,6 +45,8 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     <input type="text" name="theme" value="{$conf["theme"]}">
     <p> links: </p>
     <textarea cols="40" rows="10" type="text" name="links">{$links}</textarea>
+    <p> footer: </p>
+    <textarea cols="40" rows="10" type="text" name="footertext">{$conf["footertext"]}</textarea>
     </block>
     
     <block>

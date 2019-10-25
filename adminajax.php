@@ -5,6 +5,7 @@
 * 
 * (C) X35gaming, under GNU GPL-v3
 * */
+//admin chats beautifier
 ?>
 
 <script src="core/php_libs/jquery/jquery-3.x.min.js"></script>

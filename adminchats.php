@@ -5,6 +5,7 @@
  * 
  * (C) X35gaming, under GNU GPL-v3
  * */
+// admin chats display
 session_start();
 $conf = json_decode(file_get_contents("config.json"),true); // converts the chat.json file into an array
 if (password_verify($_SESSION["passwd"],$conf["password-hash"])) {//check passwd

@@ -5,6 +5,7 @@
 * 
 * (C) X35gaming, under GNU GPL-v3
 * */
+// chat box
 $user='';
 session_start();
 $conf = json_decode(file_get_contents("config.json"),true);                                   // load config file.

@@ -5,6 +5,8 @@
 * 
 * (C) X35gaming, under GNU GPL-v3
 * */
+// defilther
+
 function defilth($msg,$badwords){
 global $conf;
 $bettermsg=$msg;

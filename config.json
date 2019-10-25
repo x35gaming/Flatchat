@@ -20,6 +20,7 @@
             "name": "test theme"
         }
     ],
+    "footertext": "Footer",
     "adminuser": "admin",
     "password-hash": "$2y$10$wT.ioqhxUowY1Y1IK8XaxO3Nadnj2TqWDIsPVGbHq1gWs3FdS0ndq",
     "forumtitle": "Flatchat Forum",
