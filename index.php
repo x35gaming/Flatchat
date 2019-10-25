@@ -40,7 +40,7 @@ $mainpage= $Parsedown->text(file_get_contents("pages/".$_GET["page"].".md"));
     "<div class=\"red\"><h1> error 404</h1></div>\n### page missing or deleted\n##### did the creeper blow it up?\n### [back to home](index.php)
     ");}};
 $title = $Parsedown->line($conf["title"]);                                  //set title 
-
+require("core/flatchat_modules/plugin_support/plugins.php");
                                     // theme
 require("themes/".$conf["theme"]."/theme.php"); //load theme
 function loadCss($file) { 

@@ -1,22 +1,19 @@
-
-<pre><code>
+/*
+* flatchat
+* flat file php cms/forum/chat all in one
+* 
+* (C) X35gaming, under GNU GPL-v3
+* */
+// plugin loader
 <?php
-if (file_exists("./plugins")) {
-    $x = scandir(__DIR__."/plugins"); //any directory
-    foreach ($x as $key => $value) {
-        if ('.' !== $value && '..' !== $value){
-            if (is_dir($value)){
-                if (file_exists($value."/plugin.json")){
-                    $plugin = json_decode(file_get_contents($value."/plugin.json"),true);
-                    echo "$value is a plugin with name: ".$plugin["name"]."\n";
-                } else {
-                    echo "$value is not a plugin, missing json file\n";
-                };
-            };
-        };
-    };
-} else {
-    trigger_error(__dir__."/plugins missing", E_USER_ERROR);
+chdir('../../../plugins');
+$directory = '.';
+$scndr = array_diff(scandir($directory), array('..', '.'));
+foreach ($scndr as $NO => $name){
+if (file_exists($name . '/plugin.json')){
+    $plugin = json_decode(file_get_contents($name ."/xpluginfile"),true);
+    include($name . "/" . $plugin['exec']);
+    $Pluginlist .= $plugin["name"] . ", ";
 }
- //Simple and working 
- ?></code></pre>
+}
+?>
