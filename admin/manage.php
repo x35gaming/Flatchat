@@ -67,6 +67,3 @@ joinToMain($Parsedown->text(file_get_contents("admin.md")));
 require("../themes/".$conf["theme"]."/theme.php"); //load theme
 };}else{echo "<script> window.location.href=\"index.php\" </script>";}
 ?>
-
-
-
