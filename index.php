@@ -6,7 +6,7 @@
  * (C) X35gaming, under GNU GPL-v3
  * */
 // main file
-
+$page_type="main";
 $conf;        // declare vars
 $Parsedown;   // 
 
@@ -23,24 +23,26 @@ foreach ($customlinks as $j){
 }
 
 
+
+
 require_once("core/php_libs/Parsedown/Parsedown.php");      // init parsedown.
 $Parsedown = new Parsedown();                               // create a parsedown object to parse markdown.
-
-
-
+require("core/flatchat_modules/plugin_support/plugins.php");
+chdir("..");
                                     // enironment vars
                                     // use these in your theme for title and content.
 
-$mainpage = $Parsedown->text(file_get_contents("pages/"."index".".md"));    // before the $_GET["page"] is not set.
+$mainpage = $Parsedown->text(file_get_contents("./pages/index.md"));    // before the $_GET["page"] is not set.
 if (isset($_GET["page"])) {                                                 // set page if $_GET["page"] is set.
-    if (file_exists("pages/".$_GET["page"].".md")) {
+    if (file_exists("pages/" . $_GET["page"].".md")) {
 $mainpage= $Parsedown->text(file_get_contents("pages/".$_GET["page"].".md")); 
+
 }else{$mainpage=
     $Parsedown->text(
     "<div class=\"red\"><h1> error 404</h1></div>\n### page missing or deleted\n##### did the creeper blow it up?\n### [back to home](index.php)
     ");}};
 $title = $Parsedown->line($conf["title"]);                                  //set title 
-require("core/flatchat_modules/plugin_support/plugins.php");
+
                                     // theme
 require("themes/".$conf["theme"]."/theme.php"); //load theme
 function loadCss($file) { 

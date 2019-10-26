@@ -10,7 +10,7 @@ block {
 </style>
 <?php
 
-$cnf = json_decode(file_get_contents("config.json"),true);
+$cnf = json_decode(file_get_contents("../config.json"),true);
 
 if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     if (isset ($_POST["links"])){
@@ -18,11 +18,11 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
         $newpost["links"]=json_decode($_POST["links"],true);
         $jsonpost=json_encode($newpost,JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES);
         echo "<block>formatted output(for debug)<pre>".htmlspecialchars($jsonpost)."</pre></block>";
-        file_put_contents("config.json",$jsonpost);
+        file_put_contents("../config.json",$jsonpost);
         
     }//else {$_POST = $cnf;}; // put conts
     
-    $conf = json_decode(file_get_contents("config.json"),true);
+    $conf = json_decode(file_get_contents("../config.json"),true);
     
     if ($conf["defilth-words"] == "true"){
         $defyes="checked";

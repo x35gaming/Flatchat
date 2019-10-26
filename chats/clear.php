@@ -1,4 +1,3 @@
-<pre><code>
 <?php
 session_start();
 $conf = json_decode(file_get_contents("../config.json"),true);
@@ -18,5 +17,3 @@ echo 'DONE';
 echo '<form method="post"><input type="hidden" name="clear" value="clear"><input type="submit" value="Clear Chat"></form>';
 ;};};
 ?>
-
-</code></pre>

@@ -1,34 +1,7 @@
+
 [
     {
         "user": "",
         "msg": "This is the beginning off your *message* history"
-    },
-    {
-        "user": "admin",
-        "msg": "**[joined from webadmin]**"
-    },
-    {
-        "user": "admin",
-        "msg": "**[joined from webadmin]**"
-    },
-    {
-        "user": "admin",
-        "msg": "**[joined from webadmin]**"
-    },
-    {
-        "user": "admin",
-        "msg": "**[joined from webadmin]**"
-    },
-    {
-        "user": "admin",
-        "msg": "**[joined from webadmin]**"
-    },
-    {
-        "user": "admin",
-        "msg": "**[joined from webadmin]**"
-    },
-    {
-        "user": "admin",
-        "msg": "**[joined from webadmin]**"
     }
 ]

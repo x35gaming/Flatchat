@@ -11,7 +11,6 @@
 ###############################################################################
 ################### this is here so i can find it in my code###################
 */
-
 kbd {
     background: #4b4b4b;
     border: 2px solid black;
@@ -207,7 +206,7 @@ html {
 */
 .msgs{
     width:100%;
-    height:calc(100% - 1.5cm)
+    height:calc(100vh - 13cm)
 }
 .msgsadmin{
     width:100%;
