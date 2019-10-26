@@ -6,6 +6,7 @@ block {
     float: top;
     display:block;
     border:3px solid red;
+    font-family : Verdana, Geneva, sans-serif;
 }
 </style>
 <?php
@@ -30,6 +31,13 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     } else {
         $defno="checked";
         $defyes="";
+    }
+    if ($conf["adminjoinmsg"] == "true"){
+        $admsgyes="checked";
+        $admsgno="";
+    } else {
+        $admsgno="checked";
+        $admsgyes="";
     }
     $links= json_encode($conf["links"],JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES);
     echo <<<CONFIGURATION_FORM
@@ -60,11 +68,14 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     
     <block>
     <h1>chat</h1>
-    <p> forum name: </p>
-    <input type="text" name="forumtitle" value="{$conf["forumtitle"]}">
     <p> block <b>swear words</b>: </p>
     <input type="radio" name="defilth-words" value="true" $defyes> Yes<br>
     <input type="radio" name="defilth-words" value="false" $defno> No<br>
+    <p> forum name: </p>
+    <input type="text" name="forumtitle" value="{$conf["forumtitle"]}">
+    <p>admin join msgs:</p>
+    <input type="radio" name="adminjoinmsg" value="true" $admsgyes> Yes, annoy me!<br>
+    <input type="radio" name="adminjoinmsg" value="false" $admsgno> No<br>
     </block>
     <block>
     <input type="submit" value="apply">

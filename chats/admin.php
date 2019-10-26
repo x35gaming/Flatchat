@@ -1,4 +1,3 @@
-<pre><code>
 <?php
 session_start();
 $conf = json_decode(file_get_contents("../config.json"),true);
@@ -14,10 +13,8 @@ if (isset($_POST["removeid"])){
         $array4 = array_merge($array2, $array3);
         // echo json_encode($array4);
         file_put_contents("chats.json", json_encode($array4));
-        echo 'DONE!<br><script>window.location.href = \'../adminajax.php\';</script>';
+        echo 'DONE!<br><script>window.location.href = \'../admin/adminajax.php\';</script>';
         }
     }
 }
 ?>
-
-</code></pre>

@@ -14,7 +14,9 @@ $conf = json_decode(file_get_contents("../config.json"),true);                  
 <?php
 if (isset($_GET["admin"]) && !isset($_POST["msg"])){
     $_POST["user"]= $conf["adminuser"];
-    $_POST["msg"]="**[joined from webadmin]**";
+    if ($conf["adminjoinmsg"] == "true") {
+        $_POST["msg"]="**[joined from webadmin]**";
+    }
     $user = $conf["adminuser"];
 } else {
     $user = null;
@@ -76,6 +78,11 @@ if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
 }else{echo $userclear;}                                                          // if username is empty
 }else{echo $userclear;}                                                          // <-----/
 ?>
+<style>
+    body {
+        font-family : Verdana, Geneva, sans-serif;
+    }
+</style>
 <form method="post">
 User: <input type="text" name="user" value="<?php if(isset($_SESSION["user"])) { echo $_SESSION["user"];}?>"/>
 Msg: <textarea type="text" rows="2" cols="40" name="msg"></textarea>

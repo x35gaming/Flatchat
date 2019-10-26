@@ -45,7 +45,7 @@ setInterval(() => {
 body{
     background: rgb(31, 31, 31);
     color: white;
-    
+    font-family : Verdana, Geneva, sans-serif;
     
     height:100vh;
 }

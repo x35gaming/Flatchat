@@ -44,7 +44,7 @@ METAQUERY
         </div>
         <div class="col-6">
             <p>
-                powered by flatchat... <a href="admin.php">Admin Panel</a>
+                powered by flatchat... <?php if($page_type == "main") {echo "<a href=\"admin/\">Admin Panel</a>";} else {echo "<a href=\"../admin/\">Admin Panel</a>";} ?>
                 <?php echo $Parsedown->text($conf["footertext"])?>
             </p>
         </div>
