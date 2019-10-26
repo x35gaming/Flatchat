@@ -1,7 +1,14 @@
-
 [
     {
         "user": "",
         "msg": "This is the beginning off your *message* history"
+    },
+    {
+        "user": "bee happy",
+        "msg": "eww... php"
+    },
+    {
+        "user": "bee happy",
+        "msg": "php"
     }
 ]

@@ -24,9 +24,9 @@ foreach ($customlinks as $j){
 
 require_once("../core/php_libs/Parsedown/Parsedown.php");      // init parsedown.
 $Parsedown = new Parsedown();                               // create a parsedown object to parse markdown.
-
+chdir("..");
 require("core/flatchat_modules/plugin_support/plugins.php");
-
+chdir("../chats");
 
                                     // environment vars
                                     // use these in your theme for title and content.
@@ -53,15 +53,15 @@ joinToMain("
 
 // </body>
                                     // theme
-require("themes/".$conf["theme"]."/theme.php"); //load theme
+require("../themes/".$conf["theme"]."/theme.php"); //load theme
 function loadCss($file) { 
     global $conf;                      
-    $style = "themes/".$conf["theme"]."/$file";          //load css files without typing the dir
+    $style = "../themes/".$conf["theme"]."/$file";          //load css files without typing the dir
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\"></link>" ;
 }
 function loadJs($file) { 
     global $conf;                      
-    $script = "themes/".$conf["theme"]."/$file";          //load css files without typing the dir
+    $script = "../themes/".$conf["theme"]."/$file";          //load css files without typing the dir
     echo "<script src=\"$script\"></script>" ;
 }
 

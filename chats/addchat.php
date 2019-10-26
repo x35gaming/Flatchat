@@ -44,7 +44,7 @@ if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
         if (!$_POST["msg"] == '') {                                                            // check for empty msg
             $newmsg=[["user" =>$_POST["user"],"msg" =>$_POST["msg"]],];                        // format the user inputted data as an array.
             $newchat = array_merge($chat,$newmsg);                                             // add the existing msgs to the new one.
-            file_put_contents("cchats.json",json_encode($newchat,JSON_PRETTY_PRINT));     // save to chats file
+            file_put_contents("chats.json",json_encode($newchat,JSON_PRETTY_PRINT));     // save to chats file
         }else{
             echo $messreq;
         };
