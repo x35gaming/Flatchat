@@ -1,7 +1,7 @@
 {
     "title": "flatchat",
     "seodesc": "another flatchat site",
-    "theme": "responsiv",
+    "theme": "lexis",
     "links": [
         {
             "url": "./index.php",

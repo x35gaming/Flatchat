@@ -1,0 +1,147 @@
+/*
+ * flatchat
+ * flat file php cms/forum/chat all in one
+ * 
+ * (C) X35gaming, under GNU GPL-v3
+ * */
+/* MarkDown styling
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
+
+kbd {
+    background: #4b4b4b;
+    border: 2px solid black;
+    border-radius: 3px;
+    color:white;
+    font-family: 'Courier New', Courier, monospace
+}
+var {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: #eee1a8;
+    border: 2px solid rgb(255, 234, 174);
+    border-radius: 3px;
+    color:black;
+}
+code {
+    background: #e0e0e0;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(250, 0, 0);
+    font-family: 'Courier New', Courier, monospace;
+
+}
+blockquote {
+    padding: 5px;
+    background: #e0e0e0;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.green{
+    padding: 5px;
+    background: #c8ff94;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.blue{
+    padding: 5px;
+    background: #2dabff;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.yellow {
+    padding: 5px;
+    background: #fff78b;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.red {
+    padding: 5px;
+    background: #ff7c7c;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+td {
+    padding: 5px;
+    background: #e0e0e0;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+th {
+    padding: 5px;
+    background: #e05555;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(250, 250, 250);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+table {
+    padding: 5px;
+    background: #313131;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+abbr {
+    background: #575757;
+    border: 2px solid rgb(77, 77, 77);
+    border-radius: 3px;
+    color:rgb(0, 255, 255);
+    font-family: 'Courier New', Courier, monospace
+}
+pre code{
+    overflow:overlay;
+    display: block;
+        background: #ebebeb;
+    border: 2px solid black;
+    border-radius: 3px;
+    color:rgb(0, 0, 0);
+    font-family: 'Courier New', Courier, monospace;
+    padding: 15px
+}
+mark {
+    background: #faef57;
+    border: 2px solid rgb(255, 237, 70);
+    border-radius: 3px;
+    color:black;
+}
+time {
+    background: #4b4b4b;
+    border: 2px solid black;
+    border-radius: 3px;
+    color:red;
+    font-family: 'Courier New', Courier, monospace
+}
+/* Chat elements
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
+iframe{
+    background: whitesmoke;
+}
+.msgs{
+    width:100%;
+    height:calc(100vh - 13cm)
+}
+.msgsadmin{
+    width:100%;
+    height:100vh;
+}
+.addmsg{
+    width:100%;
+    height: 4cm;
+}
+#chaterea{height:100%}

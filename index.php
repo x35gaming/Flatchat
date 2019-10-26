@@ -48,12 +48,12 @@ require("themes/".$conf["theme"]."/theme.php"); //load theme
 function loadCss($file) { 
     global $conf;                      
     $style = "themes/".$conf["theme"]."/$file";          //load css files without typing the dir
-    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\"></link>" ;
+    echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"./$style\"></link>" ;
 }
 function loadJs($file) { 
     global $conf;                      
     $script = "themes/".$conf["theme"]."/$file";          //load css files without typing the dir
-    echo "<script src=\"$script\"></script>" ;
+    echo "<script src=\"./$script\"></script>" ;
 }
 
 

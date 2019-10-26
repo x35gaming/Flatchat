@@ -57,12 +57,17 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     <input type="text" value="{$conf["title"]}" name="title">
     <p> description: </p>
     <textarea cols="40" rows="2" name="seodesc">{$conf["seodesc"]}</textarea>
+    </block>
+    <block>
+    <h1> Customization </h1>
     <p> theme: </p>
     {$available}
     <p> links: </p>
     <textarea cols="40" rows="10" type="text" name="links">{$links}</textarea>
     <p> footer: </p>
     <textarea cols="40" rows="10" type="text" name="footertext">{$conf["footertext"]}</textarea>
+    <p> background image: </p>
+    <input type="text" name="backgroundimg" value="{$conf["backgroundimg"]}">
     </block>
     
     <block>
@@ -92,4 +97,3 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
 CONFIGURATION_FORM;
 };
 ?>
-
