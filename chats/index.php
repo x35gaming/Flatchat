@@ -44,6 +44,7 @@ $title = $Parsedown->line($conf["title"]);//set title
 // <body>
 joinToMain("
 <div id=\"chatarea\">
+<div class=\"blur\"></div>
 <iframe src=\"ajax.php\" class=\"msgs\" frameborder=\"0\"></iframe>
 
 <iframe src=\"addchat.php\" class=\"addmsg\" frameborder=\"0\"></iframe>

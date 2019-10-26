@@ -312,7 +312,7 @@ ul li {
 -------------------------------------------------------------------------------*/
 
 .banner {
-	background: url(<?php echo $conf["backgroundimg"];?>);
+	background: url(<?php if ($page_type == "main") { echo $conf["backgroundimg"];} else { echo "../" . $conf["backgroundimg"];}?>);
 	background-position: center top;
 	background-repeat: no-repeat;
 	-moz-background-size: cover;
