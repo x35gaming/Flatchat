@@ -8,6 +8,7 @@
 * */
 // plugin loader
 chdir('plugins');
+$Pluginlist = "";
 $directory = '.';
 $scndr = array_diff(scandir($directory), array('..', '.'));
 foreach ($scndr as $NO => $name){
