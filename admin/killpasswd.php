@@ -8,4 +8,4 @@
 session_start();
 unset($_SESSION["passwd"])
 ?>
-<script> window.location.href="admin.php" </script>
+<script> window.location.href="index.php" </script>

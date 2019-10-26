@@ -38,7 +38,15 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     } else {
         $admsgno="checked";
         $admsgyes="";
-    }
+    };
+
+    $directory = '../themes';
+    $scanned_directory = array_diff(scandir($directory), array('..', '.'));
+    $available = "<select name=\"theme\">\r\n<option value=\"{$conf["theme"]}\">select a theme</option>\r\n";
+    foreach ($scanned_directory as $nnn => $themename) {
+    $available .= "<option  value=\"$themename\">$themename</option>\r\n";
+    };
+    $available .= "</select>\r\n";
     $links= json_encode($conf["links"],JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES);
     echo <<<CONFIGURATION_FORM
     <form method="post">
@@ -50,7 +58,7 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     <p> description: </p>
     <textarea cols="40" rows="2" name="seodesc">{$conf["seodesc"]}</textarea>
     <p> theme: </p>
-    <input type="text" name="theme" value="{$conf["theme"]}">
+    {$available}
     <p> links: </p>
     <textarea cols="40" rows="10" type="text" name="links">{$links}</textarea>
     <p> footer: </p>

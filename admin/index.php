@@ -4,7 +4,8 @@ session_start();
 <form method="post">
     <input type="password" placeholder="password" name="passwd">
     <input type="submit" value="verify">
-</form>
+</form><br>
+<a href="./manage.php">log in via Session >></a>
 <?php
 $conf = json_decode(file_get_contents("../config.json"),true);
 if (isset($_POST["passwd"])) {

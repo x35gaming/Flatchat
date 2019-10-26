@@ -8,7 +8,7 @@
             "name": "home"
         },
         {
-            "url": "./chat.php",
+            "url": "./chats/",
             "name": "chat"
         },
         {
@@ -16,7 +16,7 @@
             "name": "404"
         },
         {
-            "url": "./testtheme.php",
+            "url": "./core/testtheme.php",
             "name": "test theme"
         }
     ],

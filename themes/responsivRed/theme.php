@@ -25,7 +25,7 @@ METAQUERY
             </ul>
         </div>
 
-        <div class="col-6">
+        <div class="col-9">
         <?php echo $mainpage;   // puts the main content in
             //loadJs("highlight.js")
             ?>
@@ -42,7 +42,7 @@ METAQUERY
                 <?php echo $links?>
             </ul>
         </div>
-        <div class="col-6">
+        <div class="col-9">
             <p>
                 powered by flatchat... <?php if($page_type == "main") {echo "<a href=\"admin/\">Admin Panel</a>";} else {echo "<a href=\"../admin/\">Admin Panel</a>";} ?>
                 <?php echo $Parsedown->text($conf["footertext"])?>

@@ -1,1 +1,7 @@
-[{"user":"bee happy","msg":"bee"},{"user":"bee happy","msg":"happy"}]
+
+[
+    {
+        "user": "",
+        "msg": "This is the beginning off your *message* history"
+    }
+]

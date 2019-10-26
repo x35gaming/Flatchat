@@ -1,0 +1,239 @@
+/*
+ * flatchat
+ * flat file php cms/forum/chat all in one
+ * 
+ * (C) X35gaming, under GNU GPL-v3
+ * */
+/* MarkDown styling
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
+iframe{
+    background: whitesmoke;
+}
+h1:before {
+    content: "# ";
+  }
+  h2:before {
+    content: "## ";
+  }
+  h3:before {
+    content: "### ";
+  }
+  h4:before {
+    content: "#### ";
+  }
+  h5:before {
+    content: "##### ";
+  }
+  h6:before {
+    content: "###### ";
+  }
+kbd {
+    background: #4b4b4b;
+    border: 2px solid black;
+    border-radius: 3px;
+    color:white;
+    font-family: 'Courier New', Courier, monospace
+}
+var {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: #eee1a8;
+    border: 2px solid rgb(255, 234, 174);
+    border-radius: 3px;
+    color:black;
+}
+code {
+    background: black;
+    border: 2px solid green;
+    border-radius: 3px;
+    color:rgb(250, 0, 0);
+    font-family: 'Courier New', Courier, monospace;
+
+}
+blockquote {
+    padding: 5px;
+    background: green;
+    border: 2px solid rgb(182, 182, 182);
+    border-radius: 3px;
+    color:black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.green{
+    padding: 5px;
+    background: green;
+    border: 2px solid rgb(0,255,0);
+    border-radius: 3px;
+    color:rgb(0,0,0);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.blue{
+    padding: 5px;
+    background: blue;
+    border: 2px solid rgb(0,255,0);
+    border-radius: 3px;
+    color:rgb(0,255,0);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.yellow {
+    padding: 5px;
+    background: yellow;
+    border: 2px solid rgb(0,255,0);
+    border-radius: 3px;
+    color:rgb(0,0,0);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+.red {
+    padding: 5px;
+    background: red;
+    border: 2px solid rgb(0,255,0);
+    border-radius: 3px;
+    color:rgb(0,255,0);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+td {
+    padding: 5px;
+    background: black;
+    border: 2px solid rgb(0,255,0);
+    border-radius: 3px;
+    color:rgb(0,255,0);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+th {
+    padding: 5px;
+    background: green;
+    border: 2px solid black;
+    border-radius: 3px;
+    color:black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+table {
+    padding: 5px;
+    background: green;
+    border: 2px solid green;
+    border-radius: 3px;
+    color:rgb(71, 71, 71);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+abbr {
+    background: #575757;
+    border: 2px solid rgb(77, 77, 77);
+    border-radius: 3px;
+    color:rgb(0, 255, 255);
+    font-family: 'Courier New', Courier, monospace
+}
+pre code{
+    overflow:overlay;
+    display: block;
+        background: #ebebeb;
+    border: 2px solid black;
+    border-radius: 3px;
+    color:rgb(0, 0, 0);
+    font-family: 'Courier New', Courier, monospace;
+    padding: 15px
+}
+mark {
+    background: #faef57;
+    border: 2px solid rgb(255, 237, 70);
+    border-radius: 3px;
+    color:black;
+}
+time {
+    background: #4b4b4b;
+    border: 2px solid black;
+    border-radius: 3px;
+    color:red;
+    font-family: 'Courier New', Courier, monospace
+}
+/*styling for the layouts / containers
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
+* {
+    box-sizing: border-box;
+}
+.row:after {
+    content: "";
+    clear: both;
+    display: block;
+}
+[class*="col-"] {
+    float: left;
+    padding: 15px;
+}
+html {
+    font-family: 'Courier New', Courier, monospace;
+    background: #000000;
+    color: rgb(0, 250, 0);
+}
+.header {
+    background-color: #002b00;
+    color: rgb(0, 250, 0);
+    padding: 15px;
+}
+.menu ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.menu li {
+    padding: 8px;
+    margin-bottom: 7px;
+    background-color :#000000;
+    color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgb(0, 255, 0);
+}
+.menu li:hover {
+    background-color: #00cc00;
+}
+.aside {
+    background-color: #33b5e5;
+    padding: 15px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.footer {
+    background-color: #003a00;
+    color: #ffffff;
+    text-align: center;
+    font-size: 12px;
+    padding: 15px;
+}
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+}
+@media only screen and (min-width: 768px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+}
+/* Chat elements
+###############################################################################
+################### this is here so i can find it in my code###################
+*/
+.msgs{
+    width:100%;
+    height:calc(100vh - 13cm)
+}
+.msgsadmin{
+    width:100%;
+    height:100vh;
+}
+.addmsg{
+    width:100%;
+    height: 4cm;
+}
+#chaterea{height:100%}
