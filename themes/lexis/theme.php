@@ -87,11 +87,11 @@ loadjs("js/modernizr.js");
 loadjs("js/main.js");
 loadjs("./themes/lexis/js/jquery.contact.js");
 if ($page_type="admin"){
-  echo <<<STYLING
+echo <<<STYLING
   <style>
     background: white;
   </style>
-  STYLING;
+STYLING;
 }
 ?>
 </body>
