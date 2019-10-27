@@ -1,6 +1,6 @@
 # flatchat admin panel
 ## quick actions:
-<ul class="list"><li><a href="killpasswd.php">Logout >></a></li><li><a href="pages/pageman.php"> File Manager >></a></li><li><a href="backup.php">Back up Pages >></a></li></ul>
+<ul class="list"><li><a href="killpasswd.php">Logout >></a></li><li><a href="../pages/pageman.php"> File Manager >></a></li><li><a href="backup.php">Back up Pages >></a></li></ul>
 
 ### manage chat msgs
 <iframe src="adminajax.php" class="msgsadmin" frameborder="0"></iframe>
