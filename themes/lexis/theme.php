@@ -61,7 +61,8 @@ loadjs("prism.js");
           <?php echo $Parsedown->text($conf["footertext"])?>
         </div>
           <p>
-            powered by flatchat... <?php if($page_type == "main") {echo "<a href=\"admin/\">Admin Panel</a>";} else {echo "<a href=\"../admin/\">Admin Panel</a>";} ?>
+          powered by flatchat... <?php if($page_type == "main") {echo "<a href=\"admin/\">Admin Panel</a>";} else {echo "<a href=\"../admin/manage.php\">Admin Panel</a>";} ?>
+                <?php echo $Parsedown->text($conf["footertext"])?>
             
           </p>
         <div class="footer-col col-md-3">

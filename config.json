@@ -2,6 +2,8 @@
     "title": "flatchat",
     "seodesc": "another flatchat site",
     "theme": "responsivRed",
+    "secondary-theme": "responsivRed",
+    "secondarypages": "[\"\"]",
     "links": [
         {
             "url": "./index.php",
@@ -25,6 +27,7 @@
     "adminuser": "admin",
     "password-hash": "$2y$10$wT.ioqhxUowY1Y1IK8XaxO3Nadnj2TqWDIsPVGbHq1gWs3FdS0ndq",
     "defilth-words": "true",
+    "defilth-words-admin": "false",
     "forumtitle": "Flatchat Forum",
     "adminjoinmsg": "false"
 }

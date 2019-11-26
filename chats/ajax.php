@@ -10,14 +10,8 @@
 
 <script src="../core/php_libs/jquery/jquery-3.x.min.js"></script>
 <script>
-    $(document).ajaxError(function(e, jqxhr, settings, exception) {
-        if (jqxhr.readyState == 0 || jqxhr.status == 0) {
-            alert('Ajax Error');
-        }
-    });
-    
     function doit(){
-        $.support.cors = true;
+        Jquery.support.cors = true;
         $.ajax({
             type: "POST",
             url: "chats.php",

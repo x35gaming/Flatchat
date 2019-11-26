@@ -1,4 +1,5 @@
 block {
-    display:inline-flex
-
+    display:inline-flex;
+    padding:10px;
+    border-radius:10px;
 }

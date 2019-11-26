@@ -8,7 +8,7 @@
 // chats display
 $conf = json_decode(file_get_contents("../config.json"),true);     // load config file.
 require_once("../core/flatchat_modules/noswearing/defilth.php");                                    // init Defilth module.
-$bannedwords=explode(",",file_get_contents("../core/flatchat_modules/noswearing/bannedwords.array"));// set banned words list for defilth module
+$bannedwords=explode(", ",file_get_contents("../core/flatchat_modules/noswearing/bannedwords.array"));// set banned words list for defilth module
 
 require_once("../core/php_libs/Parsedown/Parsedown.php");          // init parsedown.
 $Parsedown = new Parsedown();                                   // create a parsedown object to parse markdown.

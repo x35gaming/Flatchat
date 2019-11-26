@@ -44,6 +44,10 @@ $mainpage= $Parsedown->text(file_get_contents("pages/".$_GET["page"].".md"));
 $title = $Parsedown->line($conf["title"]);                                  //set title 
 
                                     // theme
+if (isset($_GET["page"])){if (in_array($_GET["page"],json_decode($conf["secondarypages"],
+    true))){
+    $conf["theme"]=$conf["secondary-theme"];
+    }};
 require("themes/".$conf["theme"]."/theme.php"); //load theme
 function loadCss($file) { 
     global $conf;                      
