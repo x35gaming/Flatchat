@@ -11,7 +11,6 @@
 <script src="../core/php_libs/jquery/jquery-3.x.min.js"></script>
 <script>
     function doit(){
-        Jquery.support.cors = true;
         $.ajax({
             type: "POST",
             url: "chats.php",
@@ -21,8 +20,8 @@
                 document.getElementById("chats").innerHTML=data;
             },
             error:function (xhr, ajaxOptions, thrownError){
-                alert(xhr.status);
-                alert(thrownError);
+                document.getElementById("chats").innerHTML=(xhr.status);
+                document.getElementById("chats").innerHTML+=(thrownError);  
             }
         });
     }

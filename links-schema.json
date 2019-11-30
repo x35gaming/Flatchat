@@ -1,0 +1,22 @@
+{
+    "properties": {
+      "Links": {
+        "type": "array",
+        "format": "tabs",
+        "title": "Links",
+        "uniqueItems": false,
+        "items": {
+          "type": "object",
+          "title": "Link",
+          "properties": {
+            "Name": {
+              "type": "string"
+            },
+            "Address": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }

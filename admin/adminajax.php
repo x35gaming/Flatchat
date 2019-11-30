@@ -17,7 +17,6 @@ $(document).ajaxError(function(e, jqxhr, settings, exception) {
 });
 
 function doit(){
-    $.support.cors = true;
     $.ajax({
         type: "POST",
         url: "adminchats.php",
@@ -27,8 +26,8 @@ function doit(){
             document.getElementById("chats").innerHTML=data;
         },
         error:function (xhr, ajaxOptions, thrownError){
-            alert(xhr.status);
-            alert(thrownError);
+            document.getElementById("chats").innerHTML=(xhr.status);
+            document.getElementById("chats").innerHTML+=(thrownError);  
         }
     });
 }
