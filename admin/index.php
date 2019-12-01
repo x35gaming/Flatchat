@@ -32,7 +32,8 @@ crossorigin="anonymous">
 </div>
 <input type="submit" value="Login" id='input_submit' class='input_field'>
 <span id='create_account'>
-<a href="./manage.php">Log in via session &#x27A1; </a>
+<a href="./manage.php">Log in via session &rsaquo;&rsaquo;&rsaquo; </a><br>
+<a href="../">&lsaquo;&lsaquo;&lsaquo; Back to home </a>
 </span>
 </form></div>
 </div>
