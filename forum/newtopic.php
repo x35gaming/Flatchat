@@ -6,7 +6,7 @@
  * (C) X35gaming, under GNU GPL-v3
  * */
 //ajax chat panel
-
+$conf = json_decode(file_get_contents("../config.json"),true); // load config file.
 joinToMain('
 <div class="header">
     <h1 >
@@ -36,10 +36,9 @@ REDIRECT_POST;
 }
 
 $page_type="chat";
-$conf;        // declare vars
 $Parsedown;   // 
 
-$conf = json_decode(file_get_contents("../config.json"),true); // load config file.
+
 function joinToLinks($text) {
     global $links;                      // declare $links as global
     $newmain = $links.$text;            // join $text to $links as $newmain
@@ -129,6 +128,7 @@ function loadJs($file) {
 }
 
 ?>
+
 
 
 
