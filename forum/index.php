@@ -54,7 +54,7 @@ joinToMain('
             <h1 >
                 '. $conf["forumtitle"] .'
             </h1>
-            <a href="forum/newtopic.php">New topic</a>
+            <a href="newtopic.php">New topic</a>
         </div>
     </div><br>
     <div class="list menu">
@@ -62,7 +62,7 @@ joinToMain('
 foreach($scanned_directory as $board_id){
     if (file_exists($boardsdir.'/'.$board_id.'/post.json'))
     $topic = json_decode(file_get_contents($boardsdir . '/' .$board_id.'/post.json'),true);
-    joinToMain('<a href="'.'./forum'.'/viewtopic.php?topic='.$board_id.'"><li>'.$Parsedown->line(htmlspecialchars(defilth($topic['Topic-name'],$bannedwords))).'</li></a>');
+    joinToMain('<a href="./viewtopic.php?topic='.$board_id.'"><li>'.$Parsedown->line(htmlspecialchars(defilth($topic['Topic-name'],$bannedwords))).'</li></a>');
 }
 
 joinToMain('
