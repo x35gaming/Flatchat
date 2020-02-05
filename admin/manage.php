@@ -24,12 +24,12 @@ foreach ($customlinks as $j){
 
 function loadCss($file) { 
     global $conf;                      
-    $style = "../themes/".$conf["theme"]."/$file";          //load css files without typing the dir
+    $style = "../themes/".$conf["secondary-theme"]."/$file";          //load css files without typing the dir
     echo "<link rel=\"stylesheet\" type=\"text/css\" href=\"$style\"></link>" ;
 }
 function loadJs($file) { 
     global $conf;                      
-    $script = "../themes/".$conf["theme"]."/$file";          //load css files without typing the dir
+    $script = "../themes/".$conf["secondary-theme"]."/$file";          //load css files without typing the dir
     echo "<script src=\"$script\"></script>" ;
 }
 if (isset($_SESSION["passwd"])) {
@@ -62,8 +62,7 @@ $title = $Parsedown->line($conf["title"]);//set title
 // <body>
 joinToMain($Parsedown->text(file_get_contents("admin.md")));
 
-
 // </body>
-require("../themes/".$conf["theme"]."/theme.php"); //load theme
+require("../themes/".$conf["secondary-theme"]."/theme.php"); //load theme
 };}else{echo "<script> window.location.href=\"index.php\" </script>";}
 ?>
