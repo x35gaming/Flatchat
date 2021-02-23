@@ -28,9 +28,9 @@ if (isset($_GET["clearuser"])){
     echo "type a new username";
 }
 $newmsg;
-$userclear= "please enter a username"."<script> alert(".var_export("please enter a username",true).")</script>";
-$passwdincorr= ", this username is reserved for the webmaster"."<script> alert(".var_export("this username is reserved for the webmaster, please use another one",true).")</script>";
-$messreq="message requred"."<script> alert(".var_export("message required",true).")</script>";
+$noUser= "please enter a username"."<script> alert(".var_export("please enter a username",true).")</script>";
+$passwordIncorrect= ", this username is reserved for the webmaster"."<script> alert(".var_export("this username is reserved for the webmaster, please use another one",true).")</script>";
+$messreq='';//"message requred"."<script> alert(".var_export("message required",true).")</script>";
 $chat = json_decode(file_get_contents("chats.json"),true);                               // load chats file
 if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
     if (!stripos($_POST["user"],$conf["adminuser"])) {
@@ -55,7 +55,7 @@ if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
         };
     }else{
         if (!isset($_SESSION["passwd"])){
-            echo $passwdincorr;
+            echo $passwordIncorrect;
         }else { if (password_verify($_SESSION["passwd"],$conf["password-hash"])){              // check passwd for admin users.
             $user=$_POST['user'];                                                              // set user var.
             if (!isset($_SESSION["user"])){
@@ -79,8 +79,8 @@ if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
         }}
         
     }
-}else{echo $userclear;}                                                          // if username is empty
-}else{echo $userclear;}                                                          // <-----/
+}else{echo $noUser;}                                                          // if username is empty
+}else{echo $noUser;}                                                          // <-----/
 ?>
 <style>
     body {
@@ -89,7 +89,7 @@ if (isset($_POST["user"])) { if(!$_POST["user"] == ""){
 </style>
 <form method="post">
 User: <input type="text" name="user" value="<?php if(isset($_SESSION["user"])) { echo $_SESSION["user"];}?>"/>
-Msg: <textarea type="text" rows="2" cols="40" name="msg"></textarea>
+Message: <textarea type="text" rows="2" cols="40" name="msg"></textarea>
 <input type="submit">
 <a href="addchat.php?clearuser">reset username</a> <a href="addchat.php?noraml">normal mode</a></form>
 
