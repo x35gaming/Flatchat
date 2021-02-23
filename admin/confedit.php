@@ -2,82 +2,82 @@
 session_start();
 ?>
 <style>
-.tooltip {
-  position: relative;
-  display: inline-block;
-  border-bottom: 1px dotted black;
-}
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+  }
+  .tooltip
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
 
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 120px;
-  background-color: #555;
-  color: #fff;
-  text-align: center;
-  border-radius: 6px;
-  padding: 5px 0;
-  position: absolute;
-  z-index: 1;
-  bottom: 125%;
-  left: 50%;
-  margin-left: -60px;
-  opacity: 0;
-  transition: opacity 0.3s;
-}
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
 
-.tooltip .tooltiptext::after {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  opacity: 1;
-}
-input[type=submit]:hover {
-  background-color: #45a049;
-}
-html{
-    background:gray;
-    color:#555;
-}
-h1{
-    color:#333;
-}
-input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-input[type=submit] {
-  width: 100%;
-  background-color: #4CAF50;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-block {
-    float: top;
-    display:block;
-    border:3px ridge #666;
-    font-family : Verdana, Geneva, sans-serif;
-    padding:10px;
-    border-radius:10px;
-    background:rgb(230,230,230);
-}
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  html{
+      background:gray;
+      color:#555;
+  }
+  h1{
+      color:#333;
+  }
+  input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  input[type=submit] {
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  block {
+      float: top;
+      display:block;
+      border:3px ridge #666;
+      font-family : Verdana, Geneva, sans-serif;
+      padding:10px;
+      border-radius:10px;
+      background:rgb(230,230,230);
+  }
 </style>
 <?php
 
@@ -88,7 +88,7 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
         $newpost=$_POST;
         $newpost["links"]=json_decode($_POST["links"],true);
         $jsonpost=json_encode($newpost,JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES);
-        echo "<block>formatted output(for debug)<pre>".htmlspecialchars($jsonpost)."</pre></block>";
+        if ($cnf['verbose']) {echo "<block>formatted output(for debug)<pre>".htmlspecialchars($jsonpost)."</pre></block>";};
         file_put_contents("../config.json",$jsonpost);
         
     }//else {$_POST = $cnf;}; // put conts
@@ -162,9 +162,8 @@ if (password_verify($_SESSION["passwd"],$cnf["password-hash"])){
     <h1>Admin Account</h1>
     <p> Name: </p>
     <input type="text" name="adminuser" value="{$conf["adminuser"]}">
-    <p> Hash: </p>
-    <input type="text" name="password-hash" value="{$conf["password-hash"]}"><br>generate a hash:<br>
-    <iframe width="320" height="100" frameborder="0" style="display:inline" src="passhash.php"></iframe>
+    <input type="hidden" name="password-hash" value="{$conf["password-hash"]}"><br>generate a hash:<br>
+    <iframe width="320" height="100" frameborder="0" style="display:inline" src="./passhash.php"></iframe>
     </block>
     <br>
     <block>
