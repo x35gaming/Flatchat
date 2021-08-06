@@ -1,5 +1,5 @@
 # Flatchat
-a flat file cms like TypeDown
+a flat file cms (mostly just a wrapper for parsedown)
 ### moderation
 go to `yoursite.com/pathtoinstall/admin.php` to open the panel
 ### changing the password
