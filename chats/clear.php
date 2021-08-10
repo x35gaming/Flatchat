@@ -8,7 +8,7 @@ file_put_contents("chats.json", '
 [
     {
         "user": "",
-        "msg": "This is the beginning off your *message* history"
+        "msg": "This is the beginning of your *message* history"
     }
 ]
 ');
