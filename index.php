@@ -36,6 +36,8 @@ $mainpage = $Parsedown->text(file_get_contents("./pages/index.md"));    // befor
 if (isset($_GET["page"])) {                                                 // set page if $_GET["page"] is set.
     if (file_exists("pages/" . $_GET["page"].".md")) {
 $mainpage= $Parsedown->text(file_get_contents("pages/".$_GET["page"].".md")); 
+if (isset($replaceables)) {foreach ( $replaceables as $replaceable => $replacement ) {
+    $mainpage=str_ireplace($mainpage,'${'.$replaceable.'}', $replacement);}}
 
 }else{$mainpage=
     $Parsedown->text(
